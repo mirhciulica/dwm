@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include<X11/XF86keysym.h>
 
 /* appearance */
 static const char font[]            = "-*-monospace-*-r-*-*-12-*-*-*-*-*-*-*";
@@ -14,14 +15,14 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "web", "fm", "terminal", "*", "**", "***" };
+static const char *tags[] = { "*", "web", "fm", "terminal", "**", "***" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Firefox",  NULL,       NULL,       1 << 0,       False,       -1 },
-	{ "Thunar",   NULL,       NULL,       1 << 1,       False,       -1 },
-	{ "URxvt",    NULL,       NULL,       1 << 2,       False,       -1 },
-	{ "Gimp",     NULL,       NULL,       1 << 3,       True,        -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 1,       False,       -1 },
+	{ "Thunar",   NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "URxvt",    NULL,       NULL,       1 << 3,       False,       -1 },
+	{ "Gimp",     NULL,       NULL,       1 << 4,       True,        -1 },
 };
 
 /* layout(s) */
@@ -49,7 +50,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
+static const char *termcmd[]  = { "urxvt", "-e", "tmux", "attach", "-t", "0", NULL };
+static const char *mpdtoggle[]  = { "mpc", "toggle", NULL };
+static const char *mpdstop[]    = { "mpc", "stop", NULL };
+static const char *mpdnext[]    = { "mpc", "next", NULL };
+static const char *mpdprev[]    = { "mpc", "prev", NULL };
+static const char *voltoggle[]  = { "amixer", "--card", "0", "sset", "Master", "toggle", NULL };
+static const char *volup[]      = { "amixer", "--card", "0", "sset", "PCM", "10+", NULL };
+static const char *voldown[]    = { "amixer", "--card", "0", "sset", "PCM", "10-", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -86,6 +94,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    { 0,             XF86XK_AudioPlay,          spawn,      {.v = mpdtoggle} },
+    { 0,             XF86XK_AudioPause,         spawn,      {.v = mpdtoggle} },
+    { 0,             XF86XK_AudioStop,          spawn,      {.v = mpdstop} },
+    { 0,             XF86XK_AudioPrev,          spawn,      {.v = mpdprev} },
+    { 0,             XF86XK_AudioNext,          spawn,      {.v = mpdnext} },
+    { 0,             XF86XK_AudioMute,          spawn,      {.v = voltoggle} },
+    { 0,             XF86XK_AudioRaiseVolume,   spawn,      {.v = volup} },
+    { 0,             XF86XK_AudioLowerVolume,   spawn,      {.v = voldown} },
 };
 
 /* button definitions */
