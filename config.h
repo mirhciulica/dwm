@@ -11,18 +11,21 @@ static const char selbgcolor[]      = "#005577";
 static const char selfgcolor[]      = "#eeeeee";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const Bool showsystray       = True;     /* False means no systray */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "*", "web", "fm", "terminal", "**", "***" };
+static const char *tags[] = { "blank", "www", "terminal", "media", "floating", "vbox" };
 
 static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Firefox",  NULL,       NULL,       1 << 1,       False,       -1 },
-	{ "Thunar",   NULL,       NULL,       1 << 2,       False,       -1 },
-	{ "URxvt",    NULL,       NULL,       1 << 3,       False,       -1 },
-	{ "Gimp",     NULL,       NULL,       1 << 4,       True,        -1 },
+	/* class            instance    title       tags mask     isfloating   monitor */
+	{ "Firefox",        NULL,       NULL,       1 << 1,       False,       -1 },
+	{ "URxvt",          NULL,       NULL,       1 << 2,       False,       -1 },
+	{ "VirtualBox",     NULL,       NULL,       1 << 5,       False,       -1 },
+	{ "Thunar",         NULL,       NULL,       1 << 3,       True,        -1 },
+	{ "Gimp",           NULL,       NULL,       1 << 4,       True,        -1 },
 };
 
 /* layout(s) */
