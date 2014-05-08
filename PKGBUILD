@@ -16,17 +16,26 @@ install=dwm.install
 source=(http://dl.suckless.org/dwm/dwm-$pkgver.tar.gz \
     config.h
     dwm.desktop
+    dwm-6.0-defaultlayout.diff
+    dwm-6.0-statuscolors.diff
     dwm-6.0-pertag.diff
     dwm-6.0-systray.diff
     dwm-6.0-tagall.diff)
 md5sums=('8bb00d4142259beb11e13473b81c0857'
-         '2453e037f46449774ec8afab49b4f1a2'
-         '939f403a71b6e85261d09fc3412269ee')
+         '3344d20f4225d3d5be6c0e6bbe18234e'
+         '939f403a71b6e85261d09fc3412269ee'
+         '8fe7462f59c29ad22a4aaf9807644243'
+         'f0c345b547a1b5764fadee390c0ee3c6'
+         '54339e932893264d2ee95e134c10d0d4'
+         '967174d90cc7d99508f4285fedf301a8'
+         'e6d27cc7f20ca67713965d93b36fb853')
 
 build() {
   cd $srcdir/$pkgname-$pkgver
   cp $srcdir/config.h config.h
 
+  patch -Np1 -i $srcdir/dwm-6.0-defaultlayout.diff
+  patch -Np1 -i $srcdir/dwm-6.0-statuscolors.diff
   patch -Np1 -i $srcdir/dwm-6.0-pertag.diff
   patch -Np1 -i $srcdir/dwm-6.0-systray.diff
   patch -Np1 -i $srcdir/dwm-6.0-tagall.diff
